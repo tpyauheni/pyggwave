@@ -30,6 +30,7 @@ setup(
     name = "pyggwave",
     description = "Tiny data-over-sound library with better documentation and more functions.",
     long_description = long_description,
+    long_description_content_type = 'text/x-rst',
     version = "0.4.2.6",
     url = "https://github.com/tpyauheni/pyggwave",
     author = "Yauheni",

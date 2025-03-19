@@ -16,11 +16,11 @@
     ]]]
     [[[end]]]
 
-======
-ggwave
-======
+========
+pyggwave
+========
 
-Tiny data-over-sound library.
+A fork of tiny data-over-sound library with improved documentation and Python compatibility.
 
 ..  [[[cog
 
@@ -29,11 +29,11 @@ Tiny data-over-sound library.
     cog.outl()
 
     cog.outl(indent(comment('generate audio waveform for string "hello python"')))
-    cog.outl(indent('waveform = ggwave.encode("hello python")'))
+    cog.outl(indent('waveform = pyggwave.encode("hello python")'))
     cog.outl()
 
     cog.outl(indent(comment('decode audio waveform')))
-    cog.outl(indent('text = ggwave.decode(instance, waveform)'))
+    cog.outl(indent('text = pyggwave.decode(instance, waveform)'))
     cog.outl()
 
     ]]]
@@ -58,7 +58,7 @@ Installation
 ------------
 ::
 
-    pip install ggwave
+    pip install pyggwave
 
 ---
 API
@@ -76,11 +76,12 @@ Encodes ``payload`` into an audio waveform.
 ..  [[[cog
 
     import pydoc
+    import pyggwave
 
-    help_str = pydoc.plain(pydoc.render_doc(ggwave.GGWave.encode, "%s"))
+    help_str = pydoc.plain(pydoc.render_doc(pyggwave.GGWave.encode, "%s"))
 
     cog.outl()
-    cog.outl('Output of ``help(ggwave.encode)``:')
+    cog.outl('Output of ``help(pyggwave.encode)``:')
     cog.outl()
     cog.outl('.. code::\n')
     cog.outl(indent(help_str))
@@ -89,7 +90,7 @@ Encodes ``payload`` into an audio waveform.
 
 .. code::
 
-   {{ Content of help(ggwave.encode) will be generated here. }}
+   {{ Content of help(pyggwave.encode) will be generated here. }}
 
 ..  [[[end]]]
 
@@ -101,16 +102,16 @@ decode()
     decode(instance, waveform)
 
 Analyzes and decodes ``waveform`` into to try and obtain the original payload.
-A preallocated ggwave ``instance`` is required.
+A preallocated pyggwave ``instance`` is required.
 
 ..  [[[cog
 
     import pydoc
 
-    help_str = pydoc.plain(pydoc.render_doc(ggwave.GGWave.decode, "%s"))
+    help_str = pydoc.plain(pydoc.render_doc(pyggwave.GGWave.decode, "%s"))
 
     cog.outl()
-    cog.outl('Output of ``help(ggwave.decode)``:')
+    cog.outl('Output of ``help(pyggwave.decode)``:')
     cog.outl()
     cog.outl('.. code::\n')
     cog.outl(indent(help_str))
@@ -119,7 +120,7 @@ A preallocated ggwave ``instance`` is required.
 
 .. code::
 
-   {{ Content of help(ggwave.decode) will be generated here. }}
+   {{ Content of help(pyggwave.decode) will be generated here. }}
 
 ..  [[[end]]]
 
@@ -132,17 +133,22 @@ Usage
 
 .. code:: python
 
-    import ggwave
+    import pyggwave
     import pyaudio
 
     p = pyaudio.PyAudio()
 
+    ggwave = pyggwave.GGWave()
+
     # generate audio waveform for string "hello python"
-    waveform = ggwave.encode("hello python", protocolId = 1, volume = 20)
+    waveform = ggwave.encode("hello python", protocol_id=3)
 
     print("Transmitting text 'hello python' ...")
     stream = p.open(format=pyaudio.paFloat32, channels=1, rate=48000, output=True, frames_per_buffer=4096)
-    stream.write(waveform, len(waveform)//4)
+    stream.write(waveform, len(waveform) // 4)
+
+    ggwave.free()
+
     stream.stop_stream()
     stream.close()
 
@@ -152,29 +158,31 @@ Usage
 
 .. code:: python
 
-    import ggwave
+    import pyggwave
     import pyaudio
 
     p = pyaudio.PyAudio()
 
+    ggwave = pyggwave.GGWave()
+
     stream = p.open(format=pyaudio.paFloat32, channels=1, rate=48000, input=True, frames_per_buffer=1024)
 
     print('Listening ... Press Ctrl+C to stop')
-    instance = ggwave.init()
 
     try:
         while True:
             data = stream.read(1024, exception_on_overflow=False)
-            res = ggwave.decode(instance, data)
-            if (not res is None):
+            res = ggwave.decode(data)
+
+            if res:
                 try:
                     print('Received text: ' + res.decode("utf-8"))
-                except:
-                    pass
+                except as exc:
+                    print(exc)
     except KeyboardInterrupt:
         pass
 
-    ggwave.free(instance)
+    ggwave.free()
 
     stream.stop_stream()
     stream.close()
@@ -191,4 +199,4 @@ Check out `<http://github.com/ggerganov/ggwave>`_ for more information about ggw
 Development
 -----------
 
-Check out `ggwave python package on Github <https://github.com/ggerganov/ggwave/tree/master/bindings/python>`_.
+Check out `pyggwave python package on Github <https://github.com/tpyauheni/pyggwave/tree/master/bindings/python>`_.
