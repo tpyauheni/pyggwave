@@ -1,6 +1,6 @@
 default: build
 
-PKG_NAME := ggwave
+PKG_NAME := pyggwave
 DEST := dist/
 VER := $(shell cat setup.py | grep version |cut -d\"  -f2)
 VERSION := $(strip $(VER))
@@ -16,15 +16,15 @@ DEB_BUILD_CMD := dpkg-buildpackage -rfakeroot -uc -us
 COGAPP ?= $(shell which cog || which cogapp)
 
 .PHONY:
-ggwave:
+pyggwave:
 	# create a clean (maybe updated) copy of ggwave src
 	rm -rf ggwave && mkdir ggwave && cp -r ../../include ggwave/ && cp -r ../../src ggwave/
 
 deps:
 	echo python -m pip install cogapp cython twine
 
-pyggwave.bycython.cpp: ggwave.pyx cggwave.pxd
-	cython --cleanup=3 --cplus ggwave.pyx -o ggwave.bycython.cpp
+pyggwave.bycython.cpp: pyggwave.pyx cggwave.pxd
+	cython --cleanup=3 --cplus pyggwave.pyx -o ggwave.bycython.cpp
 
 # To build package, README.rst is needed, because it goes into long description of package,
 # which is what is visible on PyPI.
@@ -32,7 +32,7 @@ pyggwave.bycython.cpp: ggwave.pyx cggwave.pxd
 # Therefore, we first build package without README.rst, use it to generate README.rst,
 # and then finally build package again but with README.rst.
 
-BUILD_SOURCE_FILES=ggwave pyggwave.bycython.cpp setup.py
+BUILD_SOURCE_FILES=pyggwave pyggwave.bycython.cpp setup.py
 
 $(DEST)$(DEB): $(DEST)$(ORIG_TGZ)
 	-rm -r $(DEB_BUILD_DIR)
@@ -72,5 +72,5 @@ publish: clean sdist
 
 clean:
 	rm -rf ggwave dist ggwave.egg-info build
-	rm -f ggwave.c *.bycython.* ggwave.*.so
+	rm -f ggwave.c *.bycython.* ggwave.*.so pyggwave.*.so
 	rm -f README.rst

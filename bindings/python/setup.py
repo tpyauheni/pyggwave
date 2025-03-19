@@ -27,17 +27,17 @@ if not OMIT_README_RST:
 
 setup(
     # Information
-    name = "ggwave",
-    description = "Tiny data-over-sound library.",
+    name = "pyggwave",
+    description = "Tiny data-over-sound library with better documentation and more functions.",
     long_description = long_description,
-    version = "0.4.2",
-    url = "https://github.com/ggerganov/ggwave",
-    author = "Georgi Gerganov",
-    author_email = "ggerganov@gmail.com",
+    version = "0.4.2.6",
+    url = "https://github.com/tpyauheni/pyggwave",
+    author = "Yauheni",
+    author_email = "eduartpastado@gmail.com",
     license = "MIT",
     keywords = "data-over-sound fsk ecc serverless pairing qrcode ultrasound",
     # Build instructions
-    ext_modules = [Extension("ggwave",
+    ext_modules = [Extension("pyggwave",
                              [ggwave_module_src, "ggwave/src/ggwave.cpp"],
                              include_dirs=["ggwave/include", "ggwave/include/ggwave"],
                              depends=["ggwave/include/ggwave/ggwave.h"],

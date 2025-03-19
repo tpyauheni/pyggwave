@@ -224,6 +224,60 @@ int ggwave_rxDurationFrames(ggwave_Instance id) {
     return ggWave->rxDurationFrames();
 }
 
+extern "C"
+bool ggwave_rxReceiving(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxReceiving();
+}
+
+extern "C"
+bool ggwave_rxAnalyzing(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxAnalyzing();
+}
+
+extern "C"
+int ggwave_rxSamplesNeeded(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxSamplesNeeded();
+}
+
+extern "C"
+int ggwave_rxFramesToRecord(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxFramesToRecord();
+}
+
+extern "C"
+int ggwave_rxFramesLeftToRecord(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxFramesLeftToRecord();
+}
+
+extern "C"
+int ggwave_rxFramesToAnalyze(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxFramesToAnalyze();
+}
+
+extern "C"
+int ggwave_rxFramesLeftToAnalyze(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxFramesLeftToAnalyze();
+}
+
+extern "C"
+bool ggwave_rxStopReceiving(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxStopReceiving();
+}
+
+extern "C"
+int ggwave_rxDataLength(ggwave_Instance id) {
+    GGWave * ggWave = (GGWave *) g_instances[id];
+    return ggWave->rxDataLength();
+}
+
 //
 // C++ implementation
 //

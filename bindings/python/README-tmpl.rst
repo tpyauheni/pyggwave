@@ -1,7 +1,7 @@
 ..  [[[cog
 
     import cog
-    import ggwave
+    import pyggwave as ggwave
 
     def indent(text, indentation = "    "):
         return indentation + text.replace("\n", "\n" + indentation)
@@ -77,7 +77,7 @@ Encodes ``payload`` into an audio waveform.
 
     import pydoc
 
-    help_str = pydoc.plain(pydoc.render_doc(ggwave.encode, "%s"))
+    help_str = pydoc.plain(pydoc.render_doc(ggwave.GGWave.encode, "%s"))
 
     cog.outl()
     cog.outl('Output of ``help(ggwave.encode)``:')
@@ -107,7 +107,7 @@ A preallocated ggwave ``instance`` is required.
 
     import pydoc
 
-    help_str = pydoc.plain(pydoc.render_doc(ggwave.decode, "%s"))
+    help_str = pydoc.plain(pydoc.render_doc(ggwave.GGWave.decode, "%s"))
 
     cog.outl()
     cog.outl('Output of ``help(ggwave.decode)``:')

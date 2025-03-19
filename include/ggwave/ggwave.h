@@ -344,6 +344,17 @@ extern "C" {
     GGWAVE_API int ggwave_rxDurationFrames(
             ggwave_Instance instance);
 
+    GGWAVE_API bool ggwave_rxReceiving(ggwave_Instance id);
+    GGWAVE_API bool ggwave_rxAnalyzing(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxSamplesNeeded(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxFramesToRecord(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxFramesLeftToRecord(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxFramesToAnalyze(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxFramesLeftToAnalyze(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxDurationFrames(ggwave_Instance id);
+    GGWAVE_API bool ggwave_rxStopReceiving(ggwave_Instance id);
+    GGWAVE_API int ggwave_rxDataLength(ggwave_Instance id);
+
 #ifdef __cplusplus
 }
 

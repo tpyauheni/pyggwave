@@ -1,3 +1,5 @@
+from libcpp cimport bool
+
 cdef extern from "ggwave.h" nogil:
 
     ctypedef enum ggwave_SampleFormat:
@@ -83,3 +85,42 @@ cdef extern from "ggwave.h" nogil:
     void ggwave_txToggleProtocol(
             ggwave_ProtocolId protocolId,
             int state);
+
+    void ggwave_rxProtocolSetFreqStart(
+            ggwave_ProtocolId protocolId,
+            int freqStart)
+
+    void ggwave_txProtocolSetFreqStart(
+            ggwave_ProtocolId protocolId,
+            int freqStart)
+
+    int ggwave_rxDurationFrames(
+            ggwave_Instance instance)
+
+    bool ggwave_rxReceiving(
+            ggwave_Instance instance)
+
+    bool ggwave_rxAnalyzing(
+            ggwave_Instance instance)
+
+    int ggwave_rxSamplesNeeded(
+            ggwave_Instance instance)
+
+    int ggwave_rxFramesToRecord(
+            ggwave_Instance instance)
+
+    int ggwave_rxFramesLeftToRecord(
+            ggwave_Instance instance)
+
+    int ggwave_rxFramesToAnalyze(
+            ggwave_Instance instance)
+
+    int ggwave_rxFramesLeftToAnalyze(
+            ggwave_Instance instance)
+
+    bool ggwave_rxStopReceiving(
+            ggwave_Instance instance)
+
+    int ggwave_rxDataLength(
+            ggwave_Instance instance)
+
